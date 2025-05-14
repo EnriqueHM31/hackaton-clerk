@@ -1,0 +1,47 @@
+<section id="contact" class="xl:py-40 flex items-center justify-center gap-10">
+    <div class="flex-1 flex flex-col gap-6 w-full">
+        <h2 class="text-4xl xl:text-6xl font-bold text-primary" data-aos="zoom-in" data-aos-delay="100">Contacto</h2>
+        <p data-aos="zoom-in" data-aos-delay="200">
+            Cualquier duda, comentario o sugerencia puedes enviarnos un mensaje
+        </p>
+        <form action="">
+            <div class="grid grid-cols-2 gap-6" data-aos="zoom-in" data-aos-delay="300">
+                <div class="flex flex-col gap-2 w-full">
+                    <label for="nombre" class="text-sm font-bold">Nombre</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        class="border border-primary rounded-lg p-2"
+                        placeholder="DevArena"
+                    />
+                </div>
+                <div class="flex flex-col gap-2 w-ful" data-aos="zoom-in" data-aos-delay="400">
+                    <label for="email" class="text-sm font-bold">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        class="border border-primary rounded-lg p-2"
+                        placeholder="devarena@devarena.com"
+                    />
+                </div>
+                <div class="col-span-2 flex flex-col gap-2 w-ful" data-aos="zoom-in" data-aos-delay="500">
+                    <label for="mensaje" class="text-sm font-bold">Mensaje</label>
+                    <textarea
+                        id="mensaje"
+                        class="border border-primary rounded-lg p-2 h-40 resize-none"
+                        name="mensaje"
+                        placeholder="Escribe tu mensaje aqui ..."></textarea>
+                </div>
+                <div class="flex w-full col-span-2 mt-4" data-aos="zoom-in" data-aos-delay="600">
+                    <button class="bg-primary text-white w-full rounded-lg text-2xl py-2 font-bold">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="flex-1 relative flex items-center justify-center" data-aos="fade-left" data-aos-delay="100">
+        <img src="/src/assets/Contact.webp" class="w-full h-auto" alt="Imagen de fondo" loading="lazy" />
+    </div>
+</section>
