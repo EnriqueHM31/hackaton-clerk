@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.13"
+    "@fontsource/space-grotesk": "^5.2.7",
+    "@tailwindcss/vite": "^4.1.6",
+    "aos": "^2.3.4",
+    "astro": "^5.7.13",
+    "tailwindcss": "^4.1.6"
   }
 }
