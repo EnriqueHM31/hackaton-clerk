@@ -1,0 +1,96 @@
+---
+const LINKS = [
+    { texto: 'Home', url: '/' },
+    { texto: 'Conocenos', url: '#about' },
+    { texto: 'Servicios', url: '#services' },
+    { texto: 'Contacto', url: '#contact' },
+];
+---
+
+<header class="py-2 w-full fixed top-0 z-100 backdrop-blur-sm">
+    <div class="max-w-[1200px] mx-auto flex justify-between items-center">
+        <div class="flex items-center justify-start gap-2 h-12 flex-1">
+            <div class="flex h-full gap-2 items-center">
+                <img
+                    class="w-full h-full object-contain z-50"
+                    src="/src/assets/logo.webp"
+                    alt="Logo de la empresa DevArena"
+                />
+                <h2 class="text-2xl font-bold z-50 xl:flex hidden">DevArena</h2>
+            </div>
+        </div>
+
+        <nav
+            id="mobile-menu"
+            class="flex-col gap-8 items-center justify-center flex-1
+                            fixed top-0 left-0 w-full bg-black/80 backdrop-blur-sm z-40
+                            transform transition-transform duration-500 ease-in-out
+                            -translate-y-44 opacity-0 pointer-events-none
+                            xl:static xl:flex-row xl:justify-end xl:items-center xl:bg-transparent xl:backdrop-blur-none
+                            xl:translate-y-0 xl:opacity-100 xl:pointer-events-auto
+                            flex xl:flex py-6 xl:py-0 mt-20 xl:mt-0"
+        >
+            {
+                LINKS.map((link) => (
+                    <a class="text-xl hover:text-primary transition-colors z-50" href={link.url}>
+                        {link.texto}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <div
+            id="mobile-auth"
+            class="items-center gap-2 justify-around
+                        fixed top-1/2 left-0 w-full bg-black/80 backdrop-blur-sm z-40
+                        transform transition-transform duration-500 ease-in-out
+                        -translate-y-44 opacity-0 pointer-events-none
+                        xl:static xl:gap-6 xl:justify-end xl:flex-1 xl:flex
+                        xl:translate-y-0 xl:opacity-100 xl:pointer-events-auto xl:bg-transparent
+                        flex flex-row py-4 mt-5 xl:mt-0"
+        >
+            <button class="hover:text-secondary z-50 hover:font-bold">Sign Up</button>
+            <button
+                class="px-6 py-3 bg-primary text-white rounded-3xl font-bold hover:bg-blue-700 transition-colors z-50"
+            >
+                Sign In
+            </button>
+        </div>
+
+        <button
+            class="xl:hidden flex items-center justify-center w-12 h-12 bg-primary rounded-2xl size-4 p-2 cursor-pointer z-50"
+            id="menu-button"
+        >
+            <img src="/src/assets/menu.webp" alt="Icono de menu" class="w-full h-full object-contain" />
+        </button>
+    </div>
+</header>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuButton = document.getElementById('menu-button');
+        const menu = document.getElementById('mobile-menu');
+        const img = menuButton.querySelector('img');
+        const auth = document.getElementById('mobile-auth');
+
+        let isOpen = false;
+
+        menuButton.addEventListener('click', () => {
+            isOpen = !isOpen;
+            menu.classList.toggle('translate-y-0', isOpen);
+            menu.classList.toggle('-translate-y-44', !isOpen);
+            menu.classList.toggle('opacity-100', isOpen);
+            menu.classList.toggle('opacity-0', !isOpen);
+            menu.classList.toggle('pointer-events-auto', isOpen);
+            menu.classList.toggle('pointer-events-none', !isOpen);
+
+            img.src = isOpen ? '/src/assets/IconClose.webp' : '/src/assets/menu.webp';
+            auth.classList.toggle('translate-y-0', isOpen);
+            auth.classList.toggle('-translate-y-44', !isOpen);
+            auth.classList.toggle('opacity-100', isOpen);
+            auth.classList.toggle('opacity-0', !isOpen);
+            auth.classList.toggle('pointer-events-auto', isOpen);
+            auth.classList.toggle('pointer-events-none', !isOpen);
+        });
+    });
+</script>
