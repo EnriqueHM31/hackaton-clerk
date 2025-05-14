@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-secondary: rgb(103, 140, 241);
+    --color-primary: #0f85fa;
+}
+
+.circulo {
+    @apply rounded-full w-52 h-52 opacity-20 blur-[110px] bg-red-500 pointer-events-none animate-flotar;
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-30px);
+    }
+}
