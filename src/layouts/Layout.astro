@@ -5,7 +5,6 @@ import 'aos/dist/aos.css';
 import Fondo from '../components/Fondo.astro';
 import Footer from '../components/Footer.astro';
 import Navegacion from '../components/General/Navegacion.astro';
-import { ClerkProvider } from '@clerk/clerk-react';
 
 const { title } = Astro.props;
 ---
@@ -19,15 +18,13 @@ const { title } = Astro.props;
         <title>{title}</title>
     </head>
     <body>
-        <ClerkProvider publishableKey={import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY}>
-            <Fondo />
-            <Navegacion />
-            <div class="max-w-[1200px] w-full mx-auto px-4">
-                <slot />
-            </div>
-            <Footer />
-            <script is:inline src="/src/assets/js/aos.js" type="module"></script>
-        </ClerkProvider>
+        <Fondo />
+        <Navegacion />
+        <div class="max-w-[1200px] w-full mx-auto px-4">
+            <slot />
+        </div>
+        <Footer />
+        <script is:inline src="/src/assets/js/aos.js" type="module"></script>
     </body>
 
     <style>

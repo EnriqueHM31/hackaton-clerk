@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Services from '../components/Services.astro';
 import Contact from '../components/Contact.astro';
+import Wrapper from '../components/react/Wrapper';
 ---
 
 <Layout title="DevArena">
@@ -11,4 +12,5 @@ import Contact from '../components/Contact.astro';
     <About />
     <Services />
     <Contact />
+    <Wrapper client:load />
 </Layout>
