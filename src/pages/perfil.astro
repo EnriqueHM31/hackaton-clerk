@@ -1,0 +1,219 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { UserProfile } from '@clerk/astro/components';
+
+const { userId } = Astro.locals.auth();
+let user = null;
+
+if (!userId) {
+    return Astro.redirect('/');
+}
+
+user = await Astro.locals.currentUser();
+if (!user) {
+    throw new Error('User not found');
+}
+
+const { imageUrl, username, firstName, lastName, emailAddresses, createdAt, updatedAt } = user;
+const formDate = (dateInput: number | undefined) => {
+    if (!dateInput) return '';
+    const date = new Date(dateInput); // Crea un objeto Date a partir de la entrada
+
+    // Formato "14 de mayo de 2025"
+    const formattedDate = new Intl.DateTimeFormat('es-ES', {
+        day: '2-digit', // Día con dos dígitos
+        month: 'long', // Mes con nombre completo
+        year: 'numeric', // Año en formato numérico
+    }).format(date);
+
+    return formattedDate; // Retorna el formato deseado
+};
+---
+
+<Layout title="Perfil">
+    <section class="mt-20 flex items-center justify-center xl:py-16 py-9 w-full">
+        <UserProfile
+            appearance={{
+                variables: {
+                    colorPrimary: '#fff', // Azul cielo principal
+                    colorTextSecondary: '#d1edff', // Texto secundario azul claro
+                    colorBackground: 'transparent', // Fondo transparente
+                    colorText: '#e6f4ff', // Texto principal blanco azulado
+                    colorTextOnPrimaryBackground: '#ffffff',
+                    colorInputText: '#e6f4ff', // Texto en inputs
+                    colorInputBackground: '#0080ff', // Fondo inputs muy transparente
+                    fontSize: '16px',
+                    borderRadius: '12px',
+                    colorDanger: '#ff7e7e', // Rojo suave para errores
+                    colorSuccess: '#7effb3', // Verde suave para éxitos
+                    colorWarning: '#0080ff', // Amarillo suave para advertencias
+                },
+                elements: {
+                    // Contenedor principal
+                    rootBox: {
+                        width: '1200px',
+                        maxWidth: '100%',
+                        padding: '0',
+                        margin: '0 auto',
+                    },
+
+                    // Card contenedora
+                    card: {
+                        backgroundColor: '#ffffff',
+                        boxShadow: 'none',
+                        border: 'none',
+                        width: '1200px',
+                        maxWidth: '100%',
+                        padding: {
+                            mobile: '1rem',
+                            desktop: '1.5rem',
+                        },
+                    },
+
+                    // Header del perfil
+                    profilePage__header: {
+                        backgroundColor: '#ffffff',
+                        padding: '0',
+                        marginBottom: '1.5rem',
+                    },
+
+                    // Sección del perfil
+                    profileSection: {
+                        backgroundColor: 'transparent',
+                        padding: '0',
+                        marginBottom: '3rem',
+                    },
+
+                    // Títulos de sección
+                    headerTitle: {
+                        fontSize: {
+                            mobile: '1.5rem',
+                            desktop: '2.25rem',
+                        },
+                        fontWeight: '600',
+                        color: '#7ec8ff',
+                    },
+
+                    headerSubtitle: {
+                        color: '#d1edff',
+                        fontSize: {
+                            mobile: '1rem',
+                            desktop: '1.1rem',
+                        },
+                    },
+
+                    // Textos varios
+                    sectionHeaderText: {
+                        fontSize: {
+                            mobile: '1.2rem',
+                            desktop: '1.3rem',
+                        },
+                        color: '#aad4fe',
+                        fontWeight: '500',
+                    },
+
+                    // Botones
+                    button: {
+                        color: '#aad4fe',
+                        gap: '3rem',
+                        '&:hover': {
+                            backgroundColor: '#0080ff',
+                            color: '#fff',
+                        },
+                    },
+
+                    button__danger: {
+                        backgroundColor: '#f00',
+                        color: '#fff',
+                        '&:hover': {
+                            backgroundColor: 'rgba(255, 126, 126, 0.3)',
+                        },
+                    },
+
+                    // Inputs
+                    formFieldInput: {
+                        backgroundColor: 'rgba(126, 200, 255, 0.1)',
+                        border: '1px solid rgba(126, 200, 255, 0.3)',
+                        color: '#e6f4ff',
+                        display: 'flex',
+                        marginBottom: '2rem',
+                        '&:focus': {
+                            borderColor: '#7ec8ff',
+                            boxShadow: '0 0 0 1px #7ec8ff',
+                        },
+                        '&:hover': {
+                            borderColor: '#7ec8ff',
+                        },
+                    },
+
+                    // Navbar (pestañas de perfil/seguridad)
+                    navbar: {
+                        backgroundColor: '#f00',
+                        border: 'none',
+                        gap: '2rem',
+                    },
+
+                    navbarButton: {
+                        color: '#fff',
+                        marginBottom: '2rem',
+
+                        '&:hover': {
+                            color: '#fff',
+                            backgroundColor: '#0080ff',
+                        },
+                        '&[data-active="true"]': {
+                            color: '#fff',
+                            borderBottom: '2px solid #0080ff',
+                        },
+                    },
+                },
+            }}
+        />
+    </section>
+    <!-- <section class="grid grid-cols-1 xl:grid-cols-5 gap-8 mt-20 items-center justify-center xl:py-16 py-9">
+        <aside class="w-full h-full flex items-center flex-col justify-center z-50 xl:gap-12 col-span-2">
+            <div class="xl:size-60 rounded-full">
+                <img
+                    src={imageUrl === '' ? 'N/S' : imageUrl}
+                    alt="Foto de perfil"
+                    class="w-full h-full object-contain bg-black rounded-full"
+                />
+            </div>
+
+            <div class="flex flex-col justify-center gap-2 mt-4 w-full">
+                <h2 class="xl:text-3xl px-6 py-3 bg-primary rounded-2xl font-bold">Datos del usuario</h2>
+                <div class="flex flex-col gap-2 bg-black/80 backdrop-blur-sm p-4 rounded-2xl">
+                    <div class="flex flex-col justify-between">
+                        <span class="text-secondary font-bold">Nombre de usuario:</span>
+                        <p>{username === null ? 'N/S' : username}</p>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <span class="text-secondary font-bold">Nombre:</span>
+                        <p>{firstName === null ? 'N/S' : firstName}</p>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <span class="text-secondary font-bold">Apellido:</span>
+                        <p>{lastName === null ? 'N/S' : lastName}</p>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <span class="text-secondary font-bold">Email:</span>
+                        <p>{emailAddresses[0]?.emailAddress === null ? 'N/S' : emailAddresses[0]?.emailAddress}</p>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <span class="text-secondary font-bold">Fecha de creacion:</span>
+                        <p>{formDate(createdAt !== null ? createdAt : updatedAt)}</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div
+            class="w-full h-full flex items-center justify-center col-span-3 z-50 border border-primary rounded-2xl overflow-y-auto"
+        >
+            <div>hola</div>
+        </div>
+    </section> -->
+</Layout>

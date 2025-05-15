@@ -4,7 +4,7 @@
         const fondo = document.querySelector('#fondo');
         if (!fondo) return console.error('No se encontró el elemento con id "fondo"');
 
-        const COLORES = ['#3357FF', '#FF33A1', '#A133FF', '#A133FF', '#3357FF', '#FF33A1', '#A133FF'];
+        const COLORES = ['#3357FF', '#FF33A1', '#A133FF', '#3357FF', '#3357FF', '#FF33A1', '#A133FF'];
         const posiciones = [
             { top: '15%', left: '5%' },
             { top: '45%', left: '30%' },
@@ -18,8 +18,6 @@
         for (let i = 0; i < 7; i++) {
             const circulo = document.createElement('div');
             circulo.classList.add('circulo');
-            circulo.style.width = `${Math.random() * 100 + 150}px`;
-            circulo.style.height = circulo.style.width;
             circulo.style.backgroundColor = COLORES[i];
             circulo.style.position = 'absolute';
             circulo.style.top = posiciones[i].top;

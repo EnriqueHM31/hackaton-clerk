@@ -10,40 +10,47 @@ const colspan = (index: number) => {
 };
 ---
 
-<section id="about" class="overflow-hidden flex flex-col xl:flex-row items-center justify-center gap-8 xl:py-40">
-    <div class="flex-1 relative" data-aos="fade-right" data-aos-delay="200">
-        <img src="/src/assets/about.webp" class="w-full h-auto object-contain" alt="Imagen de fondo" />
+<section id="about" class="overflow-hidden flex flex-col items-center justify-center gap-8 xl:py-40 py-20">
+    <div class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:mt-5 xl:pb-8">
+        {
+            BENEFICIOS.map(({ beneficio, url }, i) => (
+                <div
+                    data-aos="fade-up"
+                    data-aos-delay={i * 100 + 100}
+                    class={` bg-primary w-full flex items-center justify-center gap-2 border border-primary py-3 px-4 rounded-4xl text-center ${colspan(i)} xl:col-span-1`}
+                >
+                    <img src={url} class="size-7 object-contain" alt="Ícono" loading="lazy" />
+                    <h3 class="xl:text-xl text-lg font-bold text-white text-center">{beneficio}</h3>
+                </div>
+            ))
+        }
+    </div>
+    <div class="w-full flex flex-col xl:flex-row items-center justify-center gap-8">
+        <div class="flex-1 relative" data-aos="fade-right" data-aos-delay="200">
+            <img src="/src/assets/about.webp" class="w-full h-auto object-contain" alt="Imagen de fondo" />
 
-        <div
-            class="absolute inset-0 items-end justify-center z-10 select-none bg-gradient-to-t from-black to-30% to-black/30 xl:flex hidden"
-        >
-            <div class="flex items-center gap-1">
-                <img src="/src/assets/Logo.webp" class="size-14 object-contain" alt="Logo de la empresa DevArena" />
-                <span class="text-xl font-bold">DevArena</span>
+            <div
+                class="absolute inset-0 items-end justify-center z-10 select-none bg-gradient-to-t from-black to-30% to-black/30 xl:flex hidden"
+            >
+                <div class="flex items-center gap-1 mb-3">
+                    <img src="/src/assets/Logo.webp" class="size-14 object-contain" alt="Logo de la empresa DevArena" />
+                    <span class="text-xl font-bold">DevArena</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="flex-1 flex flex-col gap-6 py-6">
-        <h2 class="text-4xl xl:text-6xl font-bold text-primary" data-aos="fade-left" data-aos-delay="300">Conocenos</h2>
-        <p class="text-lg text-balance" data-aos="fade-left" data-aos-delay="400">
-            DevArena es la plataforma donde desarrolladores, diseñadores y entusiastas de la tecnología compiten en
-            hackathons virtuales para resolver desafíos reales. Participa en eventos temáticos, gana premios, mejora tu
-            portafolio y forma parte de una comunidad global de innovación.
-        </p>
-
-        <div class="grid gap-6 grid-cols-2 md:grid-cols-3 xl:mt-5 xl:pb-8">
-            {
-                BENEFICIOS.map(({ beneficio, url }, i) => (
-                    <div
-                        data-aos="fade-up"
-                        data-aos-delay={i * 100 + 500}
-                        class={`w-full flex items-center gap-2 border border-secondary py-3 px-4 rounded-2xl text-center ${colspan(i)} xl:col-span-1`}
-                    >
-                        <img src={url} class="size-7 object-contain" alt="Ícono" loading="lazy" />
-                        <h3 class="text-xl font-bold text-secondary">{beneficio}</h3>
-                    </div>
-                ))
-            }
+        <div class="flex-1 flex flex-col xl:gap-10 gap-6 py-6">
+            <h2
+                class="xl:text-5xl font-bold w-fit text-3xl rounded-2xl bg-primary text-white px-6 py-3"
+                data-aos="fade-left"
+                data-aos-delay="300"
+            >
+                Conocenos
+            </h2>
+            <p class="text-lg text-balance" data-aos="fade-left" data-aos-delay="400">
+                DevArena es la plataforma donde desarrolladores, diseñadores y entusiastas de la tecnología compiten en
+                hackathons virtuales para resolver desafíos reales. Participa en eventos temáticos, gana premios, mejora
+                tu portafolio y forma parte de una comunidad global de innovación.
+            </p>
         </div>
     </div>
 </section>

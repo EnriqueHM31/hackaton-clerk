@@ -4,9 +4,15 @@ import { Services_List } from '../mooks/Services.json';
 const ANIMACIONES_CARDS_SERVICES = ['fade-right', 'fade-up', 'fade-left'];
 ---
 
-<section id="services" class="w-full flex flex-col items-center justify-center gap-16 xl:py-40">
-    <div class="flex flex-col justify-center gap-5">
-        <h2 data-aos="zoom-in" data-aos-delay="100" class="xl:text-6xl font-bold text-primary">Beneficios</h2>
+<section id="services" class="w-full flex flex-col items-center justify-center gap-16 xl:py-40 py-20 overflow-hidden">
+    <div class="flex flex-col justify-center xl:gap-10 gap-6">
+        <h2
+            data-aos="zoom-in"
+            data-aos-delay="100"
+            class="xl:text-5xl font-bold w-fit text-3xl rounded-2xl bg-primary text-white px-6 py-3"
+        >
+            Beneficios
+        </h2>
         <p data-aos="zoom-in" data-aos-delay="200" class="text-xl">
             Desarrolladores de todos los niveles pueden participar en hackathons y competencias de desarrollo virtuales.
             Desde la organización hasta la evaluación, DevArena proporciona una plataforma completa para que empresas,
@@ -19,9 +25,9 @@ const ANIMACIONES_CARDS_SERVICES = ['fade-right', 'fade-up', 'fade-left'];
                 <div
                     data-aos={ANIMACIONES_CARDS_SERVICES[id]}
                     data-aos-delay={(id % ANIMACIONES_CARDS_SERVICES.length) * 100 + 300}
-                    class="flex flex-col items-center justify-center border border-primary rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 gap-2 min-h-[300px]"
+                    class="flex flex-col items-center justify-center border border-primary rounded-2xl hover:shadow-lg transition-shadow duration-300 gap-2 xl:min-h-[300px] min-h-[350px]"
                 >
-                    <div class="w-full bg-primary px-4 flex-1 flex justify-center items-center">
+                    <div class="w-full bg-primary px-4 flex-1 flex rounded-tl-2xl rounded-tr-2xl justify-center items-center">
                         <h2 class="text-2xl font-bold">{titulo}</h2>
                     </div>
                     <div class="flex-2 flex justify-center h-full items-center">

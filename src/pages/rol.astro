@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SelectRol from '../components/react/Rol';
+
+const { userId } = Astro.locals.auth();
+
+if (!userId) {
+    // Si no está autenticado, lo mandamos a login
+    return new Response(null, {
+        status: 302,
+        headers: { Location: '/sign-in' }, // o donde sea tu login
+    });
+}
+
+const user = await Astro.locals.currentUser();
+
+// Si el usuario ya tiene rol, redirigir a hackatones
+if (user?.publicMetadata?.rol) {
+    return new Response(null, {
+        status: 302,
+        headers: { Location: '/hackatones' },
+    });
+}
+---
+
+<Layout title="Elige tu rol">
+    <section class="h-full flex flex-col items-center justify-center gap-4 w-full min-h-dvh">
+        <SelectRol client:load />
+    </section>
+</Layout>
