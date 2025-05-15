@@ -1,19 +1,32 @@
 ---
 import { SignedIn, SignedOut, UserButton, SignInButton, SignUpButton, SignOutButton } from '@clerk/astro/components';
 
-const LINKS = [
-    { texto: 'Home', url: '/' },
-    { texto: 'Conocenos', url: '#about' },
-    { texto: 'Servicios', url: '#services' },
-    { texto: 'Contacto', url: '#contact' },
-    { texto: 'Hackatones', url: '/hackatones' },
-];
+interface Link {
+    texto: string;
+    url: string;
+}
 
 const { userId } = Astro.locals.auth();
 let user = null;
+let LINKS = [] as Link[];
+
 if (userId) {
     // Get the Backend User object when you need access to the user's information
     user = await Astro.locals.currentUser();
+    LINKS = [
+        { texto: 'Home', url: '/' },
+        { texto: 'Conocenos', url: '/#about' },
+        { texto: 'Servicios', url: '/#services' },
+        { texto: 'Contacto', url: '/#contact' },
+        { texto: 'Hackatones', url: '/hackatones' },
+    ];
+} else {
+    LINKS = [
+        { texto: 'Home', url: '/' },
+        { texto: 'Conocenos', url: '/#about' },
+        { texto: 'Servicios', url: '/#services' },
+        { texto: 'Hackatones', url: '/hackatones' },
+    ];
 }
 ---
 

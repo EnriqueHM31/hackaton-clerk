@@ -1,0 +1,13 @@
+export const lenguajesSelect = [
+    { value: "", label: "Todos" },
+    { value: "JavaScript", label: "JavaScript" },
+    { value: "Python", label: "Python" },
+    { value: "Java", label: "Java" },
+    { value: "PHP", label: "PHP" },
+    { value: "C#", label: "C#" },
+    { value: "Ruby", label: "Ruby" },
+    { value: "GO", label: "Go" },
+    { value: "TypeScript", label: "TypeScript" },
+    { value: "C++", label: "C++" },
+    { value: "Rust", label: "Rust" }
+];

@@ -27,6 +27,7 @@
     "tailwindcss": "^4.1.6"
   },
   "devDependencies": {
-    "@clerk/types": "^4.58.1"
+    "@clerk/types": "^4.58.1",
+    "@tailwindcss/line-clamp": "^0.4.4"
   }
 }

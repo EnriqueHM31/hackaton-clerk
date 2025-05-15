@@ -23,7 +23,7 @@ export default defineConfig({
   output: 'server',
   server: {
     allowedHosts: [
-      'd20b-2806-10a6-16-cb2c-8549-ba4b-a873-5827.ngrok-free.app',
+      'fd62-2806-10a6-16-cb2c-fd5a-8279-3806-17cb.ngrok-free.app',
       // You can also use a wildcard to allow all ngrok subdomains:
       // '.ngrok-free.app'
     ]

@@ -1,5 +1,47 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import LayoutHackatones from '../layouts/LayoutHackatones.astro';
+import Footer from '../components/Footer.astro';
+import hackatones from '../mooks/hackatones_prueba.json';
+import CardHackaton from '../components/react/CardsHackaton';
+import { lenguajesSelect } from '../assets/js/constantes';
+
+const LINKS = [
+    { texto: 'Inicio', link: '/' },
+    { texto: 'Tus hackatones', link: '/tus-hackatones' },
+    { texto: 'Tu perfil', link: '/perfil' },
+];
 ---
 
-<Layout title="Hackatones" />
+<LayoutHackatones title="Hackatones">
+    <div class="flex h-full w-full items-center justify-center">
+        <div class="grid h-full w-full grid-cols-5 grid-rows-4 rounded-lg shadow-md">
+            <aside
+                class="col-span-1 row-span-4 bg-black rounded-lg shadow-md flex items-center justify-center flex-col py-8 z-50"
+            >
+                <div class="flex items-center w-full px-6">
+                    <img src="/src/assets/Logo.webp" alt="Hackatones" class="size-10 object-contain" />
+                    <h1 class="text-4xl font-bold">DevArena</h1>
+                </div>
+
+                <nav class="flex flex-col w-full h-full justify-center gap-5">
+                    {
+                        LINKS.map((link) => (
+                            <a
+                                href={link.link}
+                                class=" py-2 text-white w-full text-xl font-semibold hover:text-black hover:bg-blue-300 px-6"
+                            >
+                                {link.texto}
+                            </a>
+                        ))
+                    }
+                </nav>
+            </aside>
+
+            <CardHackaton hackatones={hackatones} client:only="react" />
+
+            <div class="col-span-5 row-span-4 rounded-lg shadow-md flex items-center justify-center">
+                <Footer clase="xl:mt-0 f-full" />
+            </div>
+        </div>
+    </div>
+</LayoutHackatones>
