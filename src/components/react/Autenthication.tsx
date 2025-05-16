@@ -8,20 +8,19 @@ export default function AuthRol() {
     const { isLoaded, user } = useUser();
     const [showModal, setShowModal] = useState(false);
     const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+    const [userRole, setUserRole] = useState<string | null>(null); // <- estado para guardar el rol
 
     useEffect(() => {
         if (!isLoaded || !user || !user.id) return;
 
-        const userRole = user.publicMetadata?.role ?? null;
+        const roleFromMetadata = user.publicMetadata?.role ?? null;
+        setUserRole(roleFromMetadata as string); // <- actualiza el estado con el rol
 
-        if (userRole) {
-            // Si ya tiene rol, muestra bienvenida y no pide rol
+        if (roleFromMetadata) {
             setShowModal(false);
-            setShowWelcomeModal(false);
             return;
         }
 
-        // Si no tiene rol, entonces sigue con el flujo de registrar y pedir rol
         const handleAuthFlow = async () => {
             try {
                 const registerRes = await fetch('/api/register', {
@@ -39,9 +38,8 @@ export default function AuthRol() {
                     console.error('Error al registrar usuario, status:', registerRes.status, 'texto:', text);
                     throw new Error('Error al registrar usuario');
                 }
-                await registerRes.json();
 
-                // Aquí podrías omitir la llamada a /api/check-role, porque ya tienes el rol en publicMetadata
+                await registerRes.json();
                 setShowModal(true);
             } catch (err) {
                 console.error('Error en flujo de autenticación:', err);
@@ -51,7 +49,10 @@ export default function AuthRol() {
         handleAuthFlow();
     }, [isLoaded, user]);
 
-    const handleRoleAssigned = () => {
+    const handleRoleAssigned = async () => {
+        await user?.reload(); // <- recarga el usuario desde Clerk
+        const updatedRole = user?.publicMetadata?.role ?? null;
+        setUserRole(updatedRole as string); // <- actualiza el estado
         setShowModal(false);
         setShowWelcomeModal(true);
     };
@@ -66,7 +67,7 @@ export default function AuthRol() {
         <>
             {showModal && <ModalRol userId={user.id} onRoleAssigned={handleRoleAssigned} />}
 
-            {showWelcomeModal && <WelcomeModal onClose={closeWelcomeModal} />}
+            {showWelcomeModal && userRole && <WelcomeModal role={userRole} onClose={closeWelcomeModal} />}
         </>
     );
 }

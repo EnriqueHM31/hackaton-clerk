@@ -25,14 +25,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
             imagen,
             lenguajes,
             premios,
+            sitio,
         } = data;
 
         const connection = await pool.getConnection();
 
         const query = `
             INSERT INTO hackathons 
-            (user_id, nombre, descripcion, start_date, end_date, instrucciones, imagen, lenguajes, premios)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (user_id, nombre, descripcion, start_date, end_date, instrucciones, imagen, lenguajes, premios, sitio)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `;
 
         const values = [
@@ -45,6 +46,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
             imagen,
             JSON.stringify(lenguajes),
             JSON.stringify(premios),
+            sitio,
         ];
 
         await connection.execute(query, values);

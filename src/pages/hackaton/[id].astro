@@ -40,13 +40,11 @@ const hackaton = data.hackaton?.[0];
 
 if (!hackaton) {
     console.error('Hackatón no encontrado');
-} else {
-    console.log(hackaton);
 }
 
-const { nombre, descripcion, fecha, lenguajes, imagen, end_date, instrucciones, premios } = hackaton; // Obtenemos los datos del hackaton
+const { nombre, descripcion, fecha, lenguajes, imagen, end_date, instrucciones, premios, sitio } = hackaton; // Obtenemos los datos del hackaton
 
-function formatearPremios(premiosTexto: string) {}
+console.log(hackaton);
 ---
 
 <LayoutHackatones title={`Hackatón: ${nombre}`}>
@@ -103,9 +101,24 @@ function formatearPremios(premiosTexto: string) {}
                 </section>
 
                 <section class="w-full mt-6 flex gap-5 flex-col">
+                    <p class="text-3xl text-blue-300">Para mas informacion del patrocinador</p>
+                    <a
+                        href={sitio}
+                        target="_blank"
+                        class="text-white hover:underline transition-colors hover:text-blue-400 text-2xl"
+                        >Link: {sitio}</a
+                    >
+                </section>
+
+                <section class="w-full mt-6 flex gap-5 flex-col">
                     <p class="text-3xl text-blue-300">Premios</p>
                     <p style={{ whiteSpace: 'pre-line' }} class="text-white text-2xl font-bold">
-                        {premios.map((premio: string, index: number) => `🏆 Premio ${index + 1}: ${premio}`).join('\n')}
+                        {
+                            premios
+                                .split(',')
+                                .map((premio: string, i: number) => `🏆 Premio ${i + 1}:  ${premio}`)
+                                .join('\n')
+                        }
                     </p>
                 </section>
             </div>

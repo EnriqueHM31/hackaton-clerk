@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
         const rows = await connection.query(
-            'SELECT id,user_id, nombre, descripcion, start_date AS fecha, end_date, instrucciones, imagen, lenguajes, premios FROM hackathons WHERE id = ?',
+            'SELECT id,user_id, nombre, descripcion, start_date AS fecha, end_date, instrucciones, imagen, lenguajes, premios, sitio FROM hackathons WHERE id = ?',
             [idHack]
         );
 

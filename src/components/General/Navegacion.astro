@@ -96,7 +96,13 @@ if (userId) {
                 <div class="flex items-center justify-center gap-3 xl:flex-row flex-col">
                     <div class="flex items-center justify-center bg-primary px-6 py-2 h-11 rounded-2xl gap-2">
                         <UserButton userProfileUrl="/perfil" />
-                        <p class="font-bold xl:text-md">{user?.username}</p>
+                        <p class="font-bold xl:text-md">
+                            {
+                                user?.username && user.username.length > 5
+                                    ? `${user.username.slice(0, 5)}...`
+                                    : user?.username
+                            }
+                        </p>
                     </div>
                     <SignOutButton class={'bg-primary text-white px-6 font-bold py-2 h-11 rounded-2xl xl:text-md'} />
                 </div>

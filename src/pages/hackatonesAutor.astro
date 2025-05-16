@@ -10,6 +10,8 @@ function formatearLenguajes(lenguajes: string) {
     const formatted = languages.join(', ');
     return formatted;
 }
+
+console.log(hackatones);
 ---
 
 <Layout title="Tus Hackatones">
@@ -21,7 +23,7 @@ function formatearLenguajes(lenguajes: string) {
     <section class="grid_hackatones min-h-screen mb-10">
         {
             hackatones.length === 0 ? (
-                <p class="text-gray-500 text-center py-8">No has creado ningún hackatón aún.</p>
+                <p class="text-white text-2xl text-center py-8">No has creado ningún hackatón aún.</p>
             ) : (
                 hackatones.map(
                     ({

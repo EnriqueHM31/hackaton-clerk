@@ -11,7 +11,7 @@ export default function WelcomeModal({ role, onClose }: WelcomeModalProps) {
                     <img src="/src/assets/logo.webp" className="w-12 h-12 object-contain" />
                     <h2 className="text-4xl font-bold mb-4">¡Bienvenido a DevArena!</h2>
                 </div>
-                <p className="mb-6 text-2xl">Ahora ya eres un {role ? role : 'participante'}.</p>
+                <p className="mb-6 text-2xl">Ahora ya eres un {role ? role : 'usuario'}</p>
                 <button className="bg-blue-600 text-white px-4 py-2 rounded" onClick={onClose}>
                     Cerrar
                 </button>

@@ -7,22 +7,12 @@ dotenv.config();
 export const GET: APIRoute = async ({ request, locals }) => {
     const { userId } = locals.auth();
 
-    // if (!userId) {
-    //     return new Response(
-    //         JSON.stringify({ error: 'No autenticado' }),
-    //         {
-    //             status: 401,
-    //             headers: { 'Content-Type': 'application/json' },
-    //         }
-    //     );
-    // }
-
     const connection = await pool.getConnection();
 
     try {
         const [rows] = await connection.query(
-            'SELECT id,user_id, nombre, descripcion, start_date, end_date, instrucciones, imagen, lenguajes, premios FROM hackathons WHERE user_id = ? ORDER BY start_date DESC',
-            ['user_2x9myDXVlQ2vdHnCqo8KMzfKUyq']
+            'SELECT id, user_id, nombre, descripcion, start_date, end_date, instrucciones, imagen, lenguajes, premios, sitio FROM hackathons WHERE user_id = ? ORDER BY start_date DESC',
+            [userId]
         );
 
         connection.release();

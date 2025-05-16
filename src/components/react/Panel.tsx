@@ -15,6 +15,7 @@ export default function HackathonForm() {
         imagen: '',
         lenguajes: ['JavaScript', 'Python'],
         premios: [] as string[],
+        sitio: '',
     });
 
     const [showModal, setShowModal] = useState(false);
@@ -67,6 +68,7 @@ export default function HackathonForm() {
             imagen: formData.imagen,
             instrucciones: formData.instrucciones,
             premios: premiosTexto,
+            sitio: formData.sitio,
         };
 
         try {
@@ -115,7 +117,7 @@ export default function HackathonForm() {
                             type="text"
                             name="nombre"
                             placeholder="Nombre del hackathon"
-                            className="p-3 border border-secondary rounded bg-black placeholder:text-white text-white"
+                            className="p-3 border border-secondary rounded bg-black placeholder:text-white/50 text-white"
                             value={formData.nombre}
                             onChange={handleChange}
                             required
@@ -125,7 +127,7 @@ export default function HackathonForm() {
                             name="descripcion"
                             placeholder="Descripción"
                             rows={4}
-                            className="p-3 border border-secondary rounded bg-black placeholder:text-white text-white resize-none"
+                            className="p-3 border border-secondary rounded bg-black placeholder:text-white/50 text-white resize-none"
                             value={formData.descripcion}
                             onChange={handleChange}
                             required
@@ -138,7 +140,7 @@ export default function HackathonForm() {
                                     type="date"
                                     name="startDate"
                                     id="startDate"
-                                    className="p-3 border border-secondary rounded bg-black placeholder:text-white text-white"
+                                    className="p-3 border border-secondary rounded bg-black placeholder:text-white/50 text-white"
                                     value={formData.startDate}
                                     onChange={handleChange}
                                     required
@@ -151,7 +153,7 @@ export default function HackathonForm() {
                                     type="date"
                                     name="endDate"
                                     id="endDate"
-                                    className="p-3 border border-secondary rounded bg-black placeholder:text-white text-white"
+                                    className="p-3 border border-secondary rounded bg-black placeholder:text-white/50 text-white"
                                     value={formData.endDate}
                                     onChange={handleChange}
                                     required
@@ -162,7 +164,7 @@ export default function HackathonForm() {
                         <textarea
                             name="instrucciones"
                             placeholder="Instrucciones"
-                            className="p-3 border border-secondary rounded bg-black placeholder:text-white text-white resize-none"
+                            className="p-3 border border-secondary rounded bg-black placeholder:text-white/50 text-white resize-none"
                             value={formData.instrucciones}
                             onChange={handleChange}
                             required
@@ -229,6 +231,20 @@ export default function HackathonForm() {
                                 )}
                             </ul>
                         </div>
+
+                        <label htmlFor="sitio" className="flex flex-col gap-2">
+                            <p className="text-secondary text-2xl font-bold">URL del patrocinador</p>
+                            <input
+                                type="text"
+                                name="sitio"
+                                id="sitio"
+                                placeholder="https://www.patrocinador.com"
+                                className="p-3 border border-secondary rounded bg-black placeholder:text-white/50 text-white"
+                                value={formData.sitio}
+                                onChange={handleChange}
+                                required
+                            />
+                        </label>
 
                         <div className="relative group flex items-center justify-center w-full">
                             <button className="w-full text-center relative inline-block p-px font-semibold leading-6 text-white bg-gray-800 shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95">

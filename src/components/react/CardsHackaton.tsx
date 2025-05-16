@@ -7,7 +7,7 @@ interface Hackaton {
     descripcion: string;
     start_date?: string | null;
     end_date?: string | null;
-    lenguajes?: string[];
+    lenguajes: string[];
     imagen?: string | null;
 }
 
@@ -23,13 +23,23 @@ export default function HackatonesList({ hackatones = [] }: { hackatones?: Hacka
     }, []);
 
     // Protección contra datos nulos/undefined
-    const safeHackatones = hackatones || [];
 
     // Filtrar hackatones según lenguaje
-    const hackatonesFiltrados = filtrar ? safeHackatones.filter((h) => h.lenguajes?.includes(filtrar)) : safeHackatones;
+    const hackatonesFiltrados = filtrar !== '' ? hackatones.filter((h) => h.lenguajes?.includes(filtrar)) : hackatones;
 
     // Hackatones que se van a renderizar según visibleCount
-    const hackatonesVisibles = hackatonesFiltrados.slice(0, visibleCount);
+    let hackatonesVisibles = [];
+
+
+
+    if (visibleCount > hackatonesFiltrados.length) {
+        hackatonesVisibles = hackatonesFiltrados;
+    } else {
+        hackatonesVisibles = hackatonesFiltrados.slice(0, visibleCount);
+    }
+
+
+    console.log(hackatonesVisibles.length);
 
     // Función para mostrar más hackatones
     const handleVerMas = () => {
@@ -44,19 +54,7 @@ export default function HackatonesList({ hackatones = [] }: { hackatones?: Hacka
         );
     }
 
-    if (hackatonesFiltrados.length === 0) {
-        return (
-            <div className="col-span-4 row-span-4 flex items-center justify-center">
-                <p className="text-gray-500 text-center py-8">
-                    {filtrar
-                        ? `No hay hackatones con el lenguaje ${
-                              lenguajesSelect.find((l) => l.value === filtrar)?.label || filtrar
-                          }`
-                        : 'No hay hackatones para mostrar.'}
-                </p>
-            </div>
-        );
-    }
+
 
     return (
         <main className="col-span-4 row-span-4 shadow-md flex items-center flex-col h-full z-50 gap-8 overflow-y-auto py-8 px-10">
@@ -77,10 +75,9 @@ export default function HackatonesList({ hackatones = [] }: { hackatones?: Hacka
                             value={filtrar}
                             onChange={(e) => {
                                 setFiltrar(e.target.value);
-                                setVisibleCount(6);
+                                setVisibleCount(hackatones.length);
                             }}
                         >
-                            <option value="">Todos los lenguajes</option>
                             {lenguajesSelect.map((lenguaje) => (
                                 <option key={lenguaje.value} value={lenguaje.value}>
                                     {lenguaje.label}
@@ -95,16 +92,20 @@ export default function HackatonesList({ hackatones = [] }: { hackatones?: Hacka
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-20 w-full z-50"
                 id="hackatones"
             >
-                {hackatonesVisibles.map((hackaton) => {
-                    const {
-                        id,
-                        nombre = 'Sin nombre',
-                        descripcion = 'Sin descripción',
-                        start_date,
-                        end_date,
-                        lenguajes = [],
-                        imagen,
-                    } = hackaton;
+
+                {
+                    hackatonesFiltrados.length === 0 && (
+                        < div className="col-span-4 row-span-4 flex items-center justify-center">
+                            <p className="text-white text-4xl font-bold bg-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-secondary">
+                                {filtrar
+                                    ? `No hay hackatones con el lenguaje ${lenguajesSelect.find((l) => l.value === filtrar)?.label || filtrar
+                                    }`
+                                    : 'No hay hackatones para mostrar.'}
+                            </p>
+                        </div>
+                    )
+                }
+                {hackatonesVisibles.map(({ id, nombre, descripcion, start_date, end_date, lenguajes, imagen }: Hackaton) => {
 
                     return (
                         <a
@@ -146,22 +147,22 @@ export default function HackatonesList({ hackatones = [] }: { hackatones?: Hacka
                                         Del{' '}
                                         {start_date
                                             ? new Date(start_date).toLocaleDateString('es-ES', {
-                                                  day: '2-digit',
-                                                  month: '2-digit',
-                                                  year: 'numeric',
-                                              })
+                                                day: '2-digit',
+                                                month: '2-digit',
+                                                year: 'numeric',
+                                            })
                                             : 'Fecha no disponible'}{' '}
                                         al{' '}
                                         {end_date
                                             ? new Date(end_date).toLocaleDateString('es-ES', {
-                                                  day: '2-digit',
-                                                  month: '2-digit',
-                                                  year: 'numeric',
-                                              })
+                                                day: '2-digit',
+                                                month: '2-digit',
+                                                year: 'numeric',
+                                            })
                                             : 'Fecha no disponible'}
                                     </p>
                                     <p className="text-green-400 text-wrap">
-                                        {lenguajes.length > 0 ? lenguajes.join(', ') : 'Lenguajes no especificados'}
+                                        {lenguajes}
                                     </p>
                                     <p className="text-white line-clamp-2 text-wrap">{descripcion}</p>
                                 </div>
@@ -208,6 +209,6 @@ export default function HackatonesList({ hackatones = [] }: { hackatones?: Hacka
                     </div>
                 )}
             </div>
-        </main>
+        </main >
     );
 }
