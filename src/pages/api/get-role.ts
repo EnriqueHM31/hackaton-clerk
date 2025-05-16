@@ -4,12 +4,11 @@ dotenv.config();
 
 
 export async function POST({ locals, request }: { locals: any, request: Request }) {
-    console.log('CLERK_SECRET_KEY:', process.env.CLERK_SECRET_KEY);
 
     const { userId } = locals.auth();  // No pasar request aquí
 
     if (!userId) {
-        return new Response(JSON.stringify({ error: 'No autorizado' }), { status: 401 });
+        return new Response(JSON.stringify({ error: 'No autorizado' + userId }), { status: 401 });
     }
 
     const { role } = await request.json();

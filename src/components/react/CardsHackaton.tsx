@@ -5,7 +5,7 @@ interface Hackaton {
     id: number;
     nombre: string;
     descripcion: string;
-    fecha: string;
+    start_date: string;
     lenguajes: string[];
     imagen: string;
 }
@@ -34,12 +34,14 @@ export default function HackatonesList({ hackatones }: { hackatones: Hackaton[] 
                 </h2>
 
                 <div className="w-full flex gap-6 items-center justify-end">
-                    <label className="text-white font-semibold flex items-center justify-center">
+                    <label className="text-white font-semibold flex items-center justify-center" htmlFor="lenguajes">
                         Filtrar por lenguaje:
                     </label>
                     <div className="relative flex items-center justify-center">
                         <select
                             className="w-full rounded-md bg-black text-white border border-primary px-4 py-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-400 max-h-40"
+                            name="lenguajes"
+                            id="lenguajes"
                             value={filtrar}
                             onChange={(e) => {
                                 setFiltrar(e.target.value);
@@ -60,13 +62,13 @@ export default function HackatonesList({ hackatones }: { hackatones: Hackaton[] 
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-20 w-full max-h-screen z-50"
                 id="hackatones"
             >
-                {hackatonesVisibles.map(({ id, nombre, descripcion, fecha, lenguajes, imagen }) => (
+                {hackatonesVisibles.map(({ id, nombre, descripcion, start_date, lenguajes, imagen }) => (
                     <a
                         href={`/hackaton/${id}`}
                         key={id}
-                        className="bg-black text-white p-6 rounded-lg w-full max-w-lg font-mono card-animada shadow-xl hover:shadow-purple-600 transition-colors duration-200"
+                        className="bg-black text-white p-6 rounded-lg w-full max-w-lg font-mono card-animada shadow-xl hover:shadow-purple-600 transition-colors duration-200 z-50"
                     >
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center z-50">
                             <div className="flex space-x-2 text-red-500">
                                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -74,18 +76,21 @@ export default function HackatonesList({ hackatones }: { hackatones: Hackaton[] 
                             </div>
                             <p className="text-sm">bash</p>
                         </div>
-                        <div className="mt-4  flex flex-col justify-between min-h-42 gap-3">
+                        <div className="mt-4  flex flex-col justify-between min-h-42 gap-3 z-50">
                             <div className="flex w-full justify-between items-center aspect-square max-h-56 py-1 relative">
                                 <div className="absolute w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/50 z-0"></div>
-                                <img
-                                    src={imagen}
-                                    alt={`Imagen del hackatón ${nombre}`}
-                                    className="w-full h-full object-contain"
-                                />
+
+                                {imagen && (
+                                    <img
+                                        src={imagen}
+                                        alt={`Imagen del hackatón ${nombre}`}
+                                        className="w-full h-full object-contain"
+                                    />
+                                )}
                             </div>
-                            <div className="h-full flex justify-between flex-col  min-h-36 gap-3">
+                            <div className="h-full flex justify-between flex-col  min-h-36 gap-3 z-50">
                                 <p className="text-green-400 text-3xl font-bold">$ {nombre}</p>
-                                <p className="text-white">+ {fecha}</p>
+                                <p className="text-white z-50">+ {start_date}</p>
                                 <p className="text-green-400">$ {lenguajes.join(', ')}</p>
                                 <p className="text-white line-clamp-2">{descripcion}</p>
                             </div>

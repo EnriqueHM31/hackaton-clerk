@@ -1,0 +1,61 @@
+---
+import Footer from '../../components/Footer.astro';
+import Navegacion from '../../components/General/Navegacion.astro';
+import SettingsHack from '../../components/react/SettingsHack';
+import LayoutHackatones from '../../layouts/LayoutHackatones.astro';
+
+export async function getStaticPaths() {
+    // Obtener todos los IDs de hackatones
+    const res = await fetch('http://localhost:4321/api/allhackatones');
+    const hackatones = await res.json();
+
+    return hackatones.map((hackaton: any) => ({
+        params: { id: hackaton.id.toString() },
+    }));
+}
+
+// Obtener el ID de los parámetros de la ruta
+const { id } = Astro.params;
+
+// Fetch para obtener los datos específicos del hackaton
+const response = await fetch('http://localhost:4321/api/idhackaton', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ idHack: id }), // Enviamos el ID correctamente
+});
+
+if (!response.ok) {
+    return new Response(null, {
+        status: 404,
+        statusText: 'Not Found',
+    });
+}
+
+const data = await response.json();
+
+// Como es un array con un solo objeto:
+const hackaton = data.hackaton?.[0];
+
+if (!hackaton) {
+    console.error('Hackatón no encontrado');
+} else {
+    console.log(hackaton.nombre); // accedes normalmente
+}
+
+console.log(data);
+console.log(hackaton);
+---
+
+<LayoutHackatones title="Panel Organizador">
+    <div class="flex flex-col justify-between items-center w-full h-full">
+        <Navegacion />
+        <section class="gap-6 text-white w-full max-w-[1120px] mx-auto z-50">
+            <div class="flex flex-col items-center justify-center w-full">
+                <SettingsHack hackaton={hackaton} client:only="react" />
+            </div>
+        </section>
+        <Footer />
+    </div>
+</LayoutHackatones>

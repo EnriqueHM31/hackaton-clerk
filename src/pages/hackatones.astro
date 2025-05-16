@@ -1,15 +1,27 @@
 ---
 import LayoutHackatones from '../layouts/LayoutHackatones.astro';
 import Footer from '../components/Footer.astro';
-import hackatones from '../mooks/hackatones_prueba.json';
 import CardHackaton from '../components/react/CardsHackaton';
-import { lenguajesSelect } from '../assets/js/constantes';
 
 const LINKS = [
     { texto: 'Inicio', link: '/' },
     { texto: 'Tus hackatones', link: '/tus-hackatones' },
     { texto: 'Tu perfil', link: '/perfil' },
 ];
+
+let hackatones = [];
+try {
+    const res = await fetch('http://localhost:4321/api/allhackatones');
+
+    if (res.ok) {
+        hackatones = await res.json();
+        console.log(hackatones);
+    } else {
+        console.error('Error en el fetch:', await res.text());
+    }
+} catch (err) {
+    console.error('Error al obtener hackatones:', err);
+}
 ---
 
 <LayoutHackatones title="Hackatones">

@@ -16,8 +16,6 @@ if (userId) {
     // Lee el role dentro de publicMetadata
     const role = user?.publicMetadata?.role ?? null;
 
-    console.log('User role:', role);
-
     // Define tus links condicionalmente según el rol
     if (role === 'organizador') {
         LINKS = [

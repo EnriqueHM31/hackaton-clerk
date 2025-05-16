@@ -53,4 +53,5 @@
     animation-name: Card;
     animation-fill-mode: both;
     animation-range: entry 20% cover 45%;
+    z-index: 80;
 }
