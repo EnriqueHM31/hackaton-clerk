@@ -8,7 +8,7 @@ export default function FormularioParticipacion() {
         <>
             <button
                 onClick={() => setAbierto(true)}
-                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all z-50"
+                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all z-50 w-fit"
             >
                 Participar
             </button>

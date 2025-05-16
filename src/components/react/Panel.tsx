@@ -54,13 +54,28 @@ export default function HackathonForm() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const { lenguajes, premios } = formData;
+        const lenguajesTexto = lenguajes.join(', ');
+        const premiosTexto = premios.join(', ');
+
+        const data = {
+            nombre: formData.nombre,
+            descripcion: formData.descripcion,
+            startDate: formData.startDate,
+            endDate: formData.endDate,
+            lenguajes: lenguajesTexto,
+            imagen: formData.imagen,
+            instrucciones: formData.instrucciones,
+            premios: premiosTexto,
+        };
+
         try {
             const res = await fetch('/api/registerhackaton', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(data),
             });
 
             if (!res.ok) {

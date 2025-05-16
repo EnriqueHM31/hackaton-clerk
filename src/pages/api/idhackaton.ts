@@ -33,11 +33,12 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
-        const hackaton = rows[0];
+        const hackatonRaw = rows[0];
+        const hackaton = {
+            ...hackatonRaw,
+        };
 
-        return new Response(JSON.stringify({
-            hackaton
-        }), {
+        return new Response(JSON.stringify({ hackaton }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });

@@ -48,7 +48,7 @@ const ParticipantesHackaton: React.FC<Props> = ({ idHack }) => {
     if (participantes.length === 0) return <p className="text-gray-300">No hay participantes inscritos aún.</p>;
 
     return (
-        <div className="p-4 bg-white rounded-xl shadow-md max-w-2xl mx-auto mt-8">
+        <div className="p-4 bg-white rounded-xl shadow-md max-w-2xl mx-auto mt-8 flex-1">
             <h2 className="text-2xl font-bold mb-4 text-center text-black">Participantes inscritos</h2>
             <ul className="space-y-3">
                 {participantes.map((p) => (

@@ -44,20 +44,45 @@ const HackatonCard: React.FC<Props> = ({ hackaton, onDeleted }) => {
     };
 
     return (
-        <div className="relative p-4 rounded-xl bg-transparent text-black w-full my-4 z-50 flex gap-5 flex-1">
+        <div className="relative p-4 rounded-xl bg-transparent text-black w-full my-4 z-50 flex flex-col gap-5">
             <div className="flex-1">
                 <img src={hackaton.imagen} alt={hackaton.nombre} className="w-full h-64 object-cover rounded-md mb-4" />
             </div>
             <div className="flex-2 flex flex-col gap-4">
-                <h2 className="text-5xl font-bold text-primary ">{hackaton.nombre}</h2>
-                <p className="text-white mt-2">{hackaton.descripcion}</p>
-                <p className="mt-2 text-2xl text-white">
-                    📅 Del {hackaton.fecha} al {hackaton.end_date}
-                </p>
-                <p className="mt-2 text-2xl text-white">
-                    🧠 Lenguajes:{' '}
-                    {Array.isArray(hackaton.lenguajes) ? hackaton.lenguajes.join(', ') : hackaton.lenguajes}
-                </p>
+                <div className="flex flex-col gap-3">
+                    <span className="text-primary text-xl ">Nombre </span>
+                    <h2 className="text-lg font-bold text-white ">{hackaton.nombre}</h2>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <span className="text-primary text-xl ">Descripcion </span>
+                    <h2 className="text-lg font-bold text-white">{hackaton.descripcion}</h2>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <span className="text-primary text-xl ">Duracion </span>
+                    <h2 className="text-lg font-bold text-primary ">
+                        <p className="mt-2 text-lg text-white">
+                            Del{' '}
+                            {new Date(hackaton.fecha).toLocaleDateString('es-ES', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                            })}{' '}
+                            al <br />{' '}
+                            {new Date(hackaton.end_date).toLocaleDateString('es-ES', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric',
+                            })}
+                        </p>
+                    </h2>
+                </div>
+                <div>
+                    <span className="text-primary text-xl ">Lenguajes </span>
+                    <p className="mt-2 text-lg text-white font-bold">
+                        {Array.isArray(hackaton.lenguajes) ? hackaton.lenguajes.join(', ') : hackaton.lenguajes}
+                    </p>
+                </div>
+
                 <button
                     onClick={() => setShowModal(true)}
                     className="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg z-50"

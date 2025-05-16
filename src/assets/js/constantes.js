@@ -6,7 +6,7 @@ export const lenguajesSelect = [
     { value: "PHP", label: "PHP" },
     { value: "C#", label: "C#" },
     { value: "Ruby", label: "Ruby" },
-    { value: "GO", label: "Go" },
+    { value: "Go", label: "Go" },
     { value: "TypeScript", label: "TypeScript" },
     { value: "C++", label: "C++" },
     { value: "Rust", label: "Rust" }

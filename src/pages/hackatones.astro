@@ -15,7 +15,6 @@ try {
 
     if (res.ok) {
         hackatones = await res.json();
-        console.log(hackatones);
     } else {
         console.error('Error en el fetch:', await res.text());
     }

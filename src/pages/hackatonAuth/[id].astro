@@ -3,6 +3,7 @@ import Footer from '../../components/Footer.astro';
 import Navegacion from '../../components/General/Navegacion.astro';
 import SettingsHack from '../../components/react/SettingsHack';
 import LayoutHackatones from '../../layouts/LayoutHackatones.astro';
+import ParticipantesHack from '../../components/react/ParticipantesHack';
 
 export async function getStaticPaths() {
     // Obtener todos los IDs de hackatones
@@ -43,17 +44,19 @@ if (!hackaton) {
 } else {
     console.log(hackaton.nombre); // accedes normalmente
 }
-
-console.log(data);
-console.log(hackaton);
 ---
 
 <LayoutHackatones title="Panel Organizador">
     <div class="flex flex-col justify-between items-center w-full h-full">
         <Navegacion />
-        <section class="gap-6 text-white w-full max-w-[1120px] mx-auto z-50">
-            <div class="flex flex-col items-center justify-center w-full">
-                <SettingsHack hackaton={hackaton} client:only="react" />
+        <section class="gap-6 text-white w-full max-w-[1200px] mx-auto z-50">
+            <div class="flex items-center justify-center w-full gap-6">
+                <div class="flex-1">
+                    <SettingsHack hackaton={hackaton} client:only="react" />
+                </div>
+                <div class="flex-2">
+                    <ParticipantesHack idHack={id} client:only="react" />
+                </div>
             </div>
         </section>
         <Footer />

@@ -14,9 +14,7 @@ export const GET: APIRoute = async () => {
         connection.release();
 
         const hackatones = (rows as any[]).map((h) => ({
-            ...h,
-            lenguajes: safeParseJSON(h.lenguajes),
-            premios: safeParseJSON(h.premios),
+            ...h
         }));
 
         return new Response(JSON.stringify(hackatones), {

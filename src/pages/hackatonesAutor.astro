@@ -4,6 +4,12 @@ import Layout from '../layouts/Layout.astro';
 // Petición con el userId como parámetro
 const res = await fetch(`http://localhost:4321/api/hackatonesauth`);
 const hackatones = await res.json();
+
+function formatearLenguajes(lenguajes: string) {
+    const languages = JSON.parse(lenguajes);
+    const formatted = languages.join(', ');
+    return formatted;
+}
 ---
 
 <Layout title="Tus Hackatones">
@@ -12,7 +18,7 @@ const hackatones = await res.json();
     >
         Tus Hackatones
     </h2>
-    <section class="grid_hackatones min-h-screen">
+    <section class="grid_hackatones min-h-screen mb-10">
         {
             hackatones.length === 0 ? (
                 <p class="text-gray-500 text-center py-8">No has creado ningún hackatón aún.</p>
@@ -37,36 +43,40 @@ const hackatones = await res.json();
                     }) => (
                         <a
                             href={`/hackatonAuth/${id}`}
-                            class="bg-black text-white p-6 rounded-lg w-full max-w-lg font-mono card-animada shadow-xl hover:shadow-purple-600 transition-colors duration-200 z-50 max-h-[500px]"
+                            class="bg-black text-white p-10 px-6 rounded-lg w-full font-mono card-animada shadow-xl transition-colors duration-200 z-50 max-h-[530px]"
                         >
-                            <div class="flex justify-between items-center z-50">
-                                <div class="flex space-x-2 text-red-500">
-                                    <div class="w-3 h-3 rounded-full bg-red-500" />
-                                    <div class="w-3 h-3 rounded-full bg-yellow-500" />
-                                    <div class="w-3 h-3 rounded-full bg-green-500" />
+                            <div class="w-full">
+                                <div class="flex justify-between items-center z-50">
+                                    <div class="flex space-x-2 text-red-500">
+                                        <div class="w-3 h-3 rounded-full bg-red-500" />
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500" />
+                                        <div class="w-3 h-3 rounded-full bg-green-500" />
+                                    </div>
+                                    <p class="text-sm bg-green-600 text-black px-5 py-2 rounded-2xl font-bold">
+                                        Settings{' '}
+                                    </p>
                                 </div>
-                                <p class="text-sm bg-green-600 text-black px-5 py-2 rounded-2xl font-bold">Settings </p>
-                            </div>
-                            <div class="mt-4 flex flex-col justify-between min-h-42 gap-3 z-50">
-                                <div class="flex w-full justify-between items-center aspect-square max-h-56 py-1 relative">
-                                    <div class="absolute w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/50 z-0" />
-                                    {imagen ? (
-                                        <img
-                                            src={imagen}
-                                            alt={`Imagen del hackatón ${nombre}`}
-                                            class="w-full h-full object-contain"
-                                        />
-                                    ) : (
-                                        <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                            Sin imagen
-                                        </div>
-                                    )}
-                                </div>
-                                <div class="h-full flex justify-between flex-col min-h-36 gap-3 z-50">
-                                    <p class="text-green-400 text-3xl font-bold">{nombre}</p>
-                                    <p class="text-white z-50">{start_date}</p>
-                                    <p class="text-green-400">{lenguajes}</p>
-                                    <p class="text-white line-clamp-2">{descripcion}</p>
+                                <div class="mt-4 flex flex-col justify-between min-h-42 gap-3 z-50">
+                                    <div class="flex w-full justify-between items-center aspect-square max-h-56 py-1 relative">
+                                        <div class="absolute w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/50 z-0" />
+                                        {imagen ? (
+                                            <img
+                                                src={imagen}
+                                                alt={`Imagen del hackatón ${nombre}`}
+                                                class="w-full h-full object-contain"
+                                            />
+                                        ) : (
+                                            <div class="w-full h-full flex items-center justify-center text-gray-400">
+                                                Sin imagen
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div class="h-full w-full flex justify-between flex-col min-h-36 gap-3 z-50">
+                                        <p class="text-green-400 text-3xl font-bold">{nombre}</p>
+                                        <p class="text-white z-50">{start_date}</p>
+                                        <p class="text-green-400 w-full">{formatearLenguajes(lenguajes)}</p>
+                                        <p class="text-white line-clamp-2">{descripcion}</p>
+                                    </div>
                                 </div>
                             </div>
                         </a>
