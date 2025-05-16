@@ -14,7 +14,7 @@ export default function AssignRoleModal({ userId, onRoleAssigned }: Props) {
         const res = await fetch('/api/get-role', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, role }),
+            body: JSON.stringify({ role }),
         });
 
         if (res.ok) {

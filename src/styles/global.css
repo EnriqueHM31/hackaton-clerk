@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import '/tailwind.config.js';
 
 @theme {
     --color-secondary: rgb(103, 140, 241);

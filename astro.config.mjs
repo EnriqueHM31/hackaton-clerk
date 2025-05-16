@@ -21,11 +21,6 @@ export default defineConfig({
   ],
   adapter: node({ mode: 'standalone' }), // 👈 agregar `mode`
   output: 'server',
-  server: {
-    allowedHosts: [
-      'fd62-2806-10a6-16-cb2c-fd5a-8279-3806-17cb.ngrok-free.app',
-      // You can also use a wildcard to allow all ngrok subdomains:
-      // '.ngrok-free.app'
-    ]
-  }
+
+
 });

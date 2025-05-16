@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PanelControl from '../components/react/Panel';
+---
+
+<Layout title="Panel Organizador">
+    <div class="flex flex-col items-center justify-center gap-6 z-50">
+        <PanelControl client:only="react" />
+    </div>
+</Layout>

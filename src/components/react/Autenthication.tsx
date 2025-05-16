@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import ModalRol from './ModalRol';
-import WelcomeModal from './ModalWelcom'; // <-- Importa tu componente
+import WelcomeModal from './ModalWelcom';
 
 export default function AuthRol() {
     const { isLoaded, user } = useUser();
@@ -12,9 +12,18 @@ export default function AuthRol() {
     useEffect(() => {
         if (!isLoaded || !user || !user.id) return;
 
+        const userRole = user.publicMetadata?.role ?? null;
+
+        if (userRole) {
+            // Si ya tiene rol, muestra bienvenida y no pide rol
+            setShowModal(false);
+            setShowWelcomeModal(false);
+            return;
+        }
+
+        // Si no tiene rol, entonces sigue con el flujo de registrar y pedir rol
         const handleAuthFlow = async () => {
             try {
-                // 1. Registrar usuario
                 const registerRes = await fetch('/api/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -32,16 +41,8 @@ export default function AuthRol() {
                 }
                 await registerRes.json();
 
-                // 2. Verificar rol
-                const roleRes = await fetch(`/api/check-role?userId=${user.id}`, {
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                if (!roleRes.ok) throw new Error('Error al verificar rol');
-
-                const roleData = await roleRes.json();
-                setShowModal(roleData.role === null);
+                // Aquí podrías omitir la llamada a /api/check-role, porque ya tienes el rol en publicMetadata
+                setShowModal(true);
             } catch (err) {
                 console.error('Error en flujo de autenticación:', err);
             }
